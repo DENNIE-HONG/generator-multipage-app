@@ -1,0 +1,52 @@
+@mixin txthid {
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+@mixin hid {
+  overflow: hidden;
+}
+@mixin wordbreak {
+  word-break: break-all;
+  word-wrap: break-word;
+}
+@mixin slide-up-top-leave {
+  opacity: 0;
+  transform: scaleY(0);
+}
+@mixin slide-up-top-enter ($duration) {
+  opacity: 1;
+  transform: scaleX(1);
+  transition: transform #{$duration} cubic-bezier(0.23, 1, 0.32, 1) 0.1s, opacity #{$duration} cubic-bezier(0.23, 1, 0.32, 1) 0.1s;
+  transform-origin: center top;
+}
+@mixin boxShadow {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+@mixin lines {
+  border-bottom: 1px solid nth($fgray, 1);
+}
+@mixin dropShadow {
+  filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.2));
+}
+
+@mixin linehid($rows) {
+  display: -webkit-box;
+  -webkit-line-clamp: $rows;
+  word-break: break-all;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+@mixin placeholder {
+  &::-webkit-input-placeholder {
+    @content;
+  }
+  &::-moz-placeholder {
+    @content;
+  }
+  &:-moz-placeholder {    /* Mozilla Firefox 4 to 18 */
+    @content;
+  }
+  &:-ms-input-placeholder{  /* Internet Explorer 10-11 */
+    @content;
+  }
+}
