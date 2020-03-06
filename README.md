@@ -8,14 +8,53 @@ First, install [Yeoman](http://yeoman.io) and generator-app-demo using [npm](htt
 
 ```bash
 npm install -g yo
-npm install -g generator-app-demo
+npm install -g generator-multipage-app
 ```
 
 Then generate your new project:
 
 ```bash
-yo app-demo
+yo multipage-demo
 ```
+
+## 页面结构
+|--build   webpack配置  
+|--config  webpack配置常量  
+|--src  源码  
+     |--assets  资源文件  
+     |--views   页面文件  
+     
+## 开发环境
+```
+npm run devServer
+```
+
+## 生产环境
+### 起服务
+服务使用koa  
++ 模板配置
++ 路由配置
++ 静态资源
++ 安全头
++ josnp
++ 日志配置
++ 错误处理
+
+
+```
+npm run start
+```
+
+### 打包
+```
+npm run build
+```
+
+### 打包后起服务
+```
+npm run build-start
+```
+
 
 ## Getting To Know Yeoman
 

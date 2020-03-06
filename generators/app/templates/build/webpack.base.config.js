@@ -61,33 +61,31 @@ module.exports = (env) => {
       rules: [
         {
           test: /\.js$/,
-          include: path.resolve(__dirname, '../src'),
-          use: [
-            'babel-loader',
-            'eslint-loader'
-          ],
+          include: WEBPACK_COMMON_CONFIG.sourceCode,
+          use: env.production ? 'babel-loader?cacheDirectory' : ['babel-loader?cacheDirectory', 'eslint-loader'],
           exclude: [/node_modules/]
         },
         {
           test: /\.(css|scss)$/,
+          include: WEBPACK_COMMON_CONFIG.sourceCode,
           use: [
             MiniCssExtractPlugin.loader,
             {
               loader: 'css-loader',
               options: {
-                sourceMap: env.production ? false: true
+                sourceMap: !env.production
               }
             },
             {
               loader: 'postcss-loader',
               options: {
-                sourceMap: env.production ? false: true
+                sourceMap: !env.production
               }
             },
             {
               loader: 'sass-loader',
               options: {
-                sourceMap: env.production ? false: true
+                sourceMap: !env.production
               }
             },
             {
@@ -100,6 +98,7 @@ module.exports = (env) => {
         },
         {
           test: /\.(png|svg|jpg|gif)$/,
+          include: WEBPACK_COMMON_CONFIG.sourceCode,
           use: [
             {
               loader: 'url-loader',
@@ -111,6 +110,7 @@ module.exports = (env) => {
         },
         {
           test: /\.(woff|woff2|eot|ttf|otf|svg)$/,
+          include: WEBPACK_COMMON_CONFIG.sourceCode,
           use: [
             {
               loader: 'url-loader',
@@ -123,6 +123,7 @@ module.exports = (env) => {
         },
         {
           test: /\.html$/,
+          include: WEBPACK_COMMON_CONFIG.sourceCode,
           use: [
             {
               loader: 'html-loader',
@@ -149,7 +150,7 @@ function moreWebpackPlugin (config, isProd) {
   pages.map((filepath)=>{
     let fileName = path.basename(filepath, '.html');
     let conf = {
-      chunks: ['manifest', 'common', 'vendor', fileName],
+      chunks: ['manifest', 'common', 'vendors', fileName],
       filename: path.resolve(__dirname, `${WEBPACK_COMMON_CONFIG.assetsViews}/${fileName}.html`),
       template: filepath,
       chunksSortMode: 'manual'

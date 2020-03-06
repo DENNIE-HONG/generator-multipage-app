@@ -13,7 +13,7 @@ module.exports = class extends Generator {
     // Have Yeoman greet the user.
     this.log(
       yosay(
-        `Welcome to the wonderful ${chalk.red("generator-app-demo")} generator!`
+        `Welcome to the wonderful ${chalk.red("generator-multipage-app")} generator!`
       )
     );
 
