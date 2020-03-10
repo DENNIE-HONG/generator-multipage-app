@@ -21,7 +21,7 @@ module.exports = (env) => {
     resolve: {
       extensions: ['.js'],
       alias: {
-        assets: path.resolve(__dirname, '../src/assets'),
+        assets: `${WEBPACK_COMMON_CONFIG.sourceCode}/assets`,
       }
     },
     optimization: {
@@ -91,7 +91,10 @@ module.exports = (env) => {
             {
               loader: 'sass-resources-loader',
               options: {
-                resources: [path.resolve(__dirname, '../src/assets/vars.scss'), path.resolve(__dirname, '../src/assets/mixins.scss')]
+                resources: [
+                  `${WEBPACK_COMMON_CONFIG.sourceCode}/assets/vars.scss`,
+                  `${WEBPACK_COMMON_CONFIG.sourceCode}/assets/mixins.scss`
+                ]
               }
             }
           ]
@@ -122,8 +125,15 @@ module.exports = (env) => {
           ]
         },
         {
+          test: /\.ejs$/,
+          use: [
+            {
+              loader: 'ejs-loader'
+            }
+          ]
+        },
+        {
           test: /\.html$/,
-          include: WEBPACK_COMMON_CONFIG.sourceCode,
           use: [
             {
               loader: 'html-loader',
@@ -146,13 +156,14 @@ module.exports = (env) => {
  * @param {Boolean} 是否是生产环境
 */
 function moreWebpackPlugin (config, isProd) {
-  let pages = glob.sync('src/views/**/*.html');
+  const pages = glob.sync('src/views/**/*.js');
   pages.map((filepath)=>{
-    let fileName = path.basename(filepath, '.html');
+    const fileName = path.basename(filepath, '.js');
+    const temp = `${WEBPACK_COMMON_CONFIG.sourceCode}/views/${fileName}/${fileName}.html`;
     let conf = {
       chunks: ['manifest', 'common', 'vendors', fileName],
       filename: path.resolve(__dirname, `${WEBPACK_COMMON_CONFIG.assetsViews}/${fileName}.html`),
-      template: filepath,
+      template: temp,
       chunksSortMode: 'manual'
     };
     if (isProd) {

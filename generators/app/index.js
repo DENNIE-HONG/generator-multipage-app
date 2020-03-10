@@ -33,22 +33,43 @@ module.exports = class extends Generator {
       {
         type: "text",
         name: "author",
-        message: "亲爱的，项目的作者谁?",
+        message: "项目的作者谁?",
+        default: ""
+      },
+      {
+        type: "text",
+        name: "email",
+        message: "你的email是什么？",
+        default: ""
+      },
+      {
+        type: "text",
+        name: "repository",
+        message: "项目的repository？",
+        default: ""
+      },
+      {
+        type: "text",
+        name: "homepage",
+        message: "项目的主页地址？",
+        default: ""
+      },
+      {
+        type: "text",
+        name: "license",
+        message: "项目的license？",
         default: ""
       }
     ];
 
     return this.prompt(prompts).then(props => {
       // To access props later use this.props.someAnswer;
-      console.log(props);
       this.props = props;
     });
   }
 
   // 创建项目目录
   default() {
-    console.log(this.props.name);
-    console.log(path.basename(this.destinationPath()));
     if (path.basename(this.destinationPath()) !== this.props.name) {
       this.log(`\nYour generator must be inside a folder named
         ${this.props.name}\n
@@ -71,7 +92,11 @@ module.exports = class extends Generator {
     const data = Object.assign(packJson, {
       name: this.props.name,
       description: this.props.description,
-      author: this.props.author
+      author: this.props.author,
+      email: this.props.email,
+      repository: this.props.repository,
+      homepage: this.props.homepage,
+      license: this.props.license
     });
     this.fs.writeJSON(this.destinationPath("package.json"), data);
   }

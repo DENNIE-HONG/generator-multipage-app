@@ -15,12 +15,15 @@ module.exports = env => {
     devServer: {
       contentBase: WEBPACK_DEV_CONFIG.assetsDirectory,
       watchContentBase: true,
-      port: WEBPACK_DEV_CONFIG.port,
+      port: 8888,
       compress: true,
       hot: true,
       publicPath: WEBPACK_DEV_CONFIG.assetsPublicPath,
       overlay: true,
       openPage: `http://localhost:${WEBPACK_DEV_CONFIG.port}`,
+      proxy: {
+        '*': `http://localhost:${WEBPACK_DEV_CONFIG.port}`
+      },
       stats: {
         colors: true,
         modules: false,

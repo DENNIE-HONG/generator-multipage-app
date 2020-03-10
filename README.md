@@ -1,4 +1,4 @@
-# generator-app-demo [![NPM version][npm-image]][npm-url] [![Build Status][travis-image]][travis-url] [![Dependency Status][daviddm-image]][daviddm-url]
+
 > 生成项目test版
 非单页面
 
@@ -25,6 +25,11 @@ yo multipage-demo
      |--views   页面文件  
      
 ## 开发环境
+模板：ejs  
+模板layout组件依赖参数传递  
+参数统一在control里配置  
+用koa起服务  
+devServer代理到koa服务地址  
 ```
 npm run devServer
 ```
