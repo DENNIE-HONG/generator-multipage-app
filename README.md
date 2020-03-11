@@ -21,8 +21,8 @@ yo multipage-demo
 |--build   webpack配置  
 |--config  webpack配置常量  
 |--src  源码  
-     |--assets  资源文件  
-     |--views   页面文件  
+      |--assets  资源文件  
+      |--views   页面文件 
      
 ## 开发环境
 模板：ejs  
@@ -32,6 +32,7 @@ yo multipage-demo
 devServer代理到koa服务地址  
 ```
 npm run devServer
+npm run start
 ```
 
 ## 生产环境
